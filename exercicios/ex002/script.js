@@ -1,56 +1,48 @@
-function verificar(){
-    var nasc = document.getElementById('txtano')
-    var res = document.getElementById('res')
-    var data = new Date()
-    var anoatual = data.getFullYear()
-    var img = document.createElement('img')
-    img.setAttribute('id', 'foto')
-    
-
-    if (nasc.value.length == 0 || nasc.value > 2023){
-        window.alert('[ERRO] Verifique os dados e tente novamente!')
-    } else{
-        var fsex = document.getElementsByName('sexo')
-        var idade = anoatual - nasc.value
-        var genero = ''
-        if (fsex[0].checked){
-            genero = 'Homem'
-            if (idade < 18){
-                //CRIANÇA
-                img.setAttribute('src', 'HOMEM-CRIANCA.png')
-            } else if (idade < 30){
-                //JOVEM
-                img.setAttribute('src', 'HOMEM-JOVEM.png')
-            } else if (idade < 60){
-                //ADULTO
-                img.setAttribute('src', 'HOMEM-ADULTO.png')
-            } else {
-                //IDOSO
-                img.setAttribute('src', 'HOMEM-IDOSO.png')
-            }
-        } else if (fsex[1].checked){
-            genero = 'Mulher'
-            if (idade < 18){
-                //CRIANÇA
-                img.setAttribute('src', 'MULHER-CRIANCA.png')
-            } else if (idade < 30){
-                //JOVEM
-                img.setAttribute('src', 'MULHER-JOVEM.png')
-                
-            } else if (idade < 60){
-                //ADULTO
-                img.setAttribute('src', 'MULHER-ADULTA.png')
-            } else {
-                //IDOSO
-                img.setAttribute('src', 'MULHER-IDOSA.png')
-            }
-        }
-        res.innerHTML = `Detectamos ${genero} com ${idade} anos.`
-        res.style.textAlign = 'center'
-        
-        res.appendChild(img)
-        img.style.paddingBottom = '-20px'
-    }
-
-
+function submitForm() {
+    // coletar os dados do formulário
+    var dataEntrada = document.getElementById("data-entrada").value;
+    var pesoJejum = document.getElementById("peso-jejum").value;
+    var pesoPos = document.getElementById("peso-pos").value;
+    var pontuacaoSono = document.getElementById("pontuacao-sono").value;
+    var tempoSono = document.getElementById("tempo-sono").value;
+    var sonoRem = document.getElementById("sono-rem").value;
+    var sonoProfundo = document.getElementById("sono-profundo").value;
+    var tempoAcordado = document.getElementById("acordado").value;
+    var horamusc = document.getElementById("horamusc").value;
+    var horabike = document.getElementById("horabike").value;
+    var caloriasMusc = document.getElementById("calorias-musc").value;
+    var freqMedia = document.getElementById("freq-media").value;
+    var freqMax = document.getElementById("freq-max").value;
+    var tempoTreino = document.getElementById("tempo-treino").value;
+    var dia = document.getElementById("dia").value;
+    // criar um objeto com os dados do formulário
+    var dados = {
+        dataEntrada: dataEntrada,
+        pesoJejum: pesoJejum,
+        pesoPos: pesoPos,
+        pontuacaoSono: pontuacaoSono,
+        tempoSono: tempoSono,
+        sonoRem: sonoRem,
+        sonoProfundo: sonoProfundo,
+        tempoAcordado: tempoAcordado,
+        horamusc: horamusc,
+        horabike: horabike,
+        caloriasMusc: caloriasMusc,
+        freqMedia: freqMedia,
+        freqMax: freqMax,
+        tempoTreino: tempoTreino,
+        dia: dia
+    };
+    // enviar os dados do formulário para o script Python no servidor
+    fetch("/submit-form", {
+        method: "POST",
+        body: JSON.stringify(dados),
+        headers: { "Content-Type": "application/json" }
+    })
+    .then(function(response) {
+        return response.text();
+    })
+    .then(function(response) {
+        document.getElementById("res").innerHTML = response;
+    });
 }
