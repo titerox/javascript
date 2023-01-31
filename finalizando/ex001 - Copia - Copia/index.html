@@ -9,14 +9,31 @@
 </head>
 <body>
     <header>
-        <h1>Título</h1>
+        <h1>Vamos contar</h1>
     </header>
     <section>
-        <div>
-testando
+        <div class="campos">
+            <label for="init">
+                <p>Início:</p>
+            </label> <input type="number" name="init" id="init">
         </div>
-        <div>
-
+        <div class="campos">
+            <label for="fim">
+                <p>Fim: </p>
+            </label>
+            <input type="number" name="fim" id="fim">
+        </div>
+        <div class="campos">
+            <label for="step">
+                <p>Passo:</p>
+            </label>
+            <input type="number" name="step" id="step">
+        </div>
+        <div id="contar">
+            <input type="submit" value="Contar" onclick="contar()">
+        </div>
+        <div id="res">
+            Preparando a contagem...
         </div>
     </section>
     <footer>

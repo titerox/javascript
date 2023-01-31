@@ -28,3 +28,20 @@ h1{
 footer{
     font-style: italic;
 }
+
+input{
+    margin-left: 3px;
+}
+
+#prima{
+    margin-bottom: 10px;
+    
+}
+
+#res{
+    margin-left: 70px;
+}
+
+select{
+    width: 177px;
+}
